@@ -43,6 +43,7 @@ export const PlayerProvider = ({ children }: PlayerProviderProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
   const [isShuffling, setIsShuffling] = useState(false);
+  const [episodesShuffled, setEpisodesShuffled] = useState([]);
 
   function play(episode: Episode) {
     setEpisodeList([episode]);
@@ -82,10 +83,18 @@ export const PlayerProvider = ({ children }: PlayerProviderProps) => {
 
   function playNext() {
     if (isShuffling) {
-      const nextRandomEpisodeIndex = Math.floor(
-        Math.random() * episodeList.length
-      );
-      setCurrentEpisodeIndex(nextRandomEpisodeIndex);
+      setEpisodesShuffled([...episodesShuffled, currentEpisodeIndex]);
+      if (episodesShuffled.length < episodeList.length) {
+        let nextRandomEpisodeIndex = Math.floor(
+          Math.random() * episodeList.length
+        );
+        while (episodesShuffled.includes(nextRandomEpisodeIndex) === true) {
+          nextRandomEpisodeIndex = Math.floor(
+            Math.random() * episodeList.length
+          );
+        }
+        setCurrentEpisodeIndex(nextRandomEpisodeIndex);
+      }
     } else if (hasNext) {
       setCurrentEpisodeIndex(currentEpisodeIndex + 1);
     }
