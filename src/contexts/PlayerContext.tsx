@@ -88,12 +88,16 @@ export const PlayerProvider = ({ children }: PlayerProviderProps) => {
         let nextRandomEpisodeIndex = Math.floor(
           Math.random() * episodeList.length
         );
+
         while (episodesShuffled.includes(nextRandomEpisodeIndex) === true) {
           nextRandomEpisodeIndex = Math.floor(
             Math.random() * episodeList.length
           );
         }
+
         setCurrentEpisodeIndex(nextRandomEpisodeIndex);
+      } else if (episodesShuffled.length === episodeList.length) {
+        clearPlayerState();
       }
     } else if (hasNext) {
       setCurrentEpisodeIndex(currentEpisodeIndex + 1);
