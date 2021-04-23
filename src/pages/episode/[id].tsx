@@ -30,7 +30,15 @@ type EpisodeProps = {
 };
 
 export default function Episode({ episode }: EpisodeProps) {
-  const { play } = useContext(PlayerContext);
+  const {
+    episodeList,
+    currentEpisodeIndex,
+    play,
+    togglePlay,
+    isPlaying,
+  } = useContext(PlayerContext);
+
+  const currentEpisode = episodeList[currentEpisodeIndex];
 
   return (
     <div className={styles.episodePage}>
@@ -88,9 +96,33 @@ export default function Episode({ episode }: EpisodeProps) {
             objectFit="cover"
           />
 
-          <button type="button" onClick={() => play(episode)}>
-            <img src="/play.svg" alt="Tocar episódio" />
-          </button>
+          {currentEpisode && currentEpisode.id == episode.id && isPlaying ? (
+            <button
+              type="button"
+              onClick={togglePlay}
+              className={`${styles.currentPlaying} ${styles.pause}`}
+            >
+              <img src="/pause.svg" alt="Tocar episódio" />
+            </button>
+          ) : (
+            <>
+              {currentEpisode &&
+              currentEpisode.id == episode.id &&
+              !isPlaying ? (
+                <button
+                  type="button"
+                  className={styles.currentPlaying}
+                  onClick={togglePlay}
+                >
+                  <img src="/play-green.svg" alt="Tocar episódio" />
+                </button>
+              ) : (
+                <button type="button" onClick={() => play(episode)}>
+                  <img src="/play.svg" alt="Tocar episódio" />
+                </button>
+              )}
+            </>
+          )}
         </div>
 
         <header>

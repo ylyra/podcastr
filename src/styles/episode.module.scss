@@ -42,6 +42,24 @@
         &:hover {
           filter: brightness(0.95);
         }
+
+        &.currentPlaying.pause {
+          background: #df5353;
+        }
+
+        &.currentPlaying:not(.pause) {
+          background: var(--white);
+          border: 1px solid var(--green-500);
+
+          img {
+            width: 2rem;
+            height: 2rem;
+          }
+        }
+
+        img {
+          border-radius: unset;
+        }
       }
     }
 

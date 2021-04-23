@@ -29,7 +29,16 @@ type HomeProps = {
 };
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
-  const { play } = useContext(PlayerContext);
+  const {
+    episodeList,
+    currentEpisodeIndex,
+    playList,
+    togglePlay,
+    isPlaying,
+  } = useContext(PlayerContext);
+
+  const currentEpisode = episodeList[currentEpisodeIndex];
+  const episodes = [...latestEpisodes, ...allEpisodes];
 
   return (
     <div className={styles.homePage}>
@@ -38,14 +47,14 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <title>Podcastr</title>
+        <title>Podcastr - Início</title>
       </Head>
 
       <section className={styles.latestEpisodes}>
         <h2>Últimos lançamentos</h2>
 
         <ul>
-          {latestEpisodes.map((episode) => (
+          {latestEpisodes.map((episode, index) => (
             <li key={episode.id}>
               <Image
                 width={192}
@@ -64,9 +73,38 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                 <span>{episode.durationAsString}</span>
               </div>
 
-              <button type="button" onClick={() => play(episode)}>
-                <img src="/play-green.svg" alt="Tocar episódio" />
-              </button>
+              {currentEpisode &&
+              currentEpisode.id == episode.id &&
+              isPlaying ? (
+                <button
+                  type="button"
+                  className={styles.pauseButton}
+                  onClick={togglePlay}
+                >
+                  <img src="/pause-red.svg" alt="Tocar episódio" />
+                </button>
+              ) : (
+                <>
+                  {currentEpisode &&
+                  currentEpisode.id == episode.id &&
+                  !isPlaying ? (
+                    <button
+                      type="button"
+                      className={styles.currentPlaying}
+                      onClick={togglePlay}
+                    >
+                      <img src="/play-green.svg" alt="Tocar episódio" />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => playList(episodes, index)}
+                    >
+                      <img src="/play-green.svg" alt="Tocar episódio" />
+                    </button>
+                  )}
+                </>
+              )}
             </li>
           ))}
         </ul>
@@ -88,9 +126,9 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
           </thead>
 
           <tbody>
-            {allEpisodes.map((episode) => (
+            {allEpisodes.map((episode, index) => (
               <tr key={episode.id}>
-                <td>
+                <td width={76}>
                   <Image
                     width={120}
                     height={120}
@@ -105,12 +143,43 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   </Link>
                 </td>
                 <td>{episode.members}</td>
-                <td>{episode.publishedAt}</td>
+                <td width={100}>{episode.publishedAt}</td>
                 <td>{episode.durationAsString}</td>
                 <td>
-                  <button type="button" onClick={() => play(episode)}>
-                    <img src="/play-green.svg" alt="Tocar episódio" />
-                  </button>
+                  {currentEpisode &&
+                  currentEpisode.id == episode.id &&
+                  isPlaying ? (
+                    <button
+                      type="button"
+                      className={styles.pauseButton}
+                      onClick={togglePlay}
+                    >
+                      <img src="/pause-red.svg" alt="Tocar episódio" />
+                    </button>
+                  ) : (
+                    <>
+                      {currentEpisode &&
+                      currentEpisode.id == episode.id &&
+                      !isPlaying ? (
+                        <button
+                          type="button"
+                          className={styles.currentPlaying}
+                          onClick={togglePlay}
+                        >
+                          <img src="/play-green.svg" alt="Tocar episódio" />
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            playList(episodes, index + latestEpisodes.length)
+                          }
+                        >
+                          <img src="/play-green.svg" alt="Tocar episódio" />
+                        </button>
+                      )}
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
