@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
+import { motion } from "framer-motion";
 
 import { api } from "../services/api";
 import { convertDurationToTimeString } from "../utils/convertDurationToTimeString";
@@ -56,12 +57,11 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
         <ul>
           {latestEpisodes.map((episode, index) => (
             <li key={episode.id}>
-              <Image
-                width={192}
-                height={192}
+              <motion.img
                 src={episode.thumbnail}
                 alt={episode.title}
-                objectFit="cover"
+                className={styles.objectFitCover}
+                layoutId={episode.id}
               />
 
               <div className={styles.episodeDetails}>
@@ -129,12 +129,11 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
             {allEpisodes.map((episode, index) => (
               <tr key={episode.id}>
                 <td width={76}>
-                  <Image
-                    width={120}
-                    height={120}
+                  <motion.img
                     src={episode.thumbnail}
                     alt={episode.title}
-                    objectFit="cover"
+                    className={styles.objectFitCover}
+                    layoutId={episode.id}
                   />
                 </td>
                 <td>
