@@ -54,6 +54,9 @@ npm run dev
 yarn dev
 
 # O projeto iniciará na porta :3000 para acessar ele no localhost basta ir em <http://localhost:3000>
+
+
+# Em services/api troque a baseURL pela sua url gerada pelo heroku
 ```
 
 ## Tecnologias
