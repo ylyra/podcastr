@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://podcastr.yanlyra.com.br/">
+  <a href="https://podcastr.yanlyra.com.br/">
     <img src="https://i.imgur.com/XRtLWR7.png"/>
   </a>
 </p>
@@ -25,7 +25,7 @@ Este site foi desenvolvido durante a [NLW#05](http://nextlevelweek.com/) o mesmo
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) e caso queria indico a utilziação do [Yarn](https://yarnpkg.com/). Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-# Backend
+## Backend
 
 Este projeto roda em um backend fictício então antes de iniciar o projeto no seu pc é necessário criar um deploy no heroku para que o seu server possa rodar, clicando no botão abaixo este processo será feito automaticamente.
 
@@ -56,7 +56,7 @@ yarn dev
 # O projeto iniciará na porta :3000 para acessar ele no localhost basta ir em <http://localhost:3000>
 
 
-# Em services/api troque a baseURL pela sua url gerada pelo heroku
+# Em src/services/api.ts troque a baseURL pela sua url da api gerada pelo heroku
 ```
 
 ## Tecnologias
@@ -74,7 +74,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [TypeScript](https://www.typescriptlang.org/)
 
 <p align="center">
-  <a href="http://moveit.yanlyra.com.br/">
-    <img src="https://img.shields.io/static/v1?label=Site&message=Move.it&color=7159c1&style=for-the-badge&logo=ghost"/>
+  <a href="https://podcastr.yanlyra.com.br/">
+    <img src="https://img.shields.io/static/v1?label=Site&message=Podcastr&color=7159c1&style=for-the-badge&logo=ghost"/>
   </a>
 </p>
